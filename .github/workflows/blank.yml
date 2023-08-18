@@ -24,8 +24,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      - name: Checkout repository
-        uses: actions/checkout@v2
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -41,3 +39,18 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+      - name: Install dependencies
+        run: npm install
+  
+      - name: Build project
+        run: npm run build
+  
+      - name: Run unit tests
+        run: npm test
+  
+      - name: Manual Run
+        if: github.event_name == 'workflow_run'
+        run: |
+            npm install
+            npm run build
+            npm run custom-script
